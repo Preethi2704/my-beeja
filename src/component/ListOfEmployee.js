@@ -185,9 +185,7 @@ export const ListOfEmployee = () => {
                                 </LinkTag>
                             </TableData>
                             <TableData style={{ "text-align": "center" }} >
-                                <Button onClick={() => handleDelete(employee.id)} >
-                                    <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
-                                </Button>
+                                    <FontAwesomeIcon icon={faTrash} onClick={() => handleDelete(employee.id)}></FontAwesomeIcon>
                             </TableData>
                         </TableRow>
                     )

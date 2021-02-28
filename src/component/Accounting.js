@@ -56,7 +56,7 @@ const TableData = Styled.td`
 border: 1px solid #ddd;
 height: 30px;
 vertical-align: bottom;
-text-align:left;
+// text-align:left;
 `;
 const TableHeading = Styled.th`
 border: 1px solid #ddd;
@@ -72,14 +72,55 @@ const Hover = Styled.a`
 &:hover {
     color:blue;
 `;
-export const InventoryPage= () => {
+export const SystemDetails = () => {
+    const { id } = useParams();
+    const [empId, setEmpId] = useState({ 'idToDelete': "" });
+    const ShowSD = gql`
+   query{ 
+    systemdetailsList{
+        id
+        name
+        code
+        device
+        config
+        slno_scode_regno
+        devicehistory
+    }
+ }`;
+    const DELETE_SD = gql`
+ mutation DeleteSD($id: String!){
+    deleteSystemDetails(id: $id){
+ respCode,
+ respMessage 
+}
+}
+`;
+
+    const { loading, error, data } = useQuery(ShowSD);
+    const [deleteMutation] = useMutation(DELETE_SD);
+    const handleDelete = (deleteId) => {
+        if (window.confirm("Are you sure?")) {
+            setEmpId({ 'idToDelete': deleteId });
+            console.log("handleDelte", deleteId, empId);
+            deleteMutation({ variables: { id: deleteId } });
+
+        }
+        else {
+
+        }
+    };
+
+
+    console.log(data);
+    if (loading) return <p>loading</p>;
+    if (error) return <p>Error</p>;
 
     return (
         <Fragment>
-            <Navbar bgColor="grey" color="white">Inventory Page
-            <Button >
-                   <LinkTag to={"/create"} >
-                        <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon> ADD
+            <Navbar bgColor="grey" color="white">System Details
+<Button >
+                    <LinkTag to={"/createsystem"}>
+                        <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>    ADD
                         </LinkTag>
                 </Button>
             </Navbar>
@@ -96,10 +137,36 @@ export const InventoryPage= () => {
                         <TableHeading>Edit</TableHeading>
                         <TableHeading>Delete</TableHeading>
                     </TableRow>
-                  </Table>
+                    {data.systemdetailsList.map((sys, id) => (
+                        <TableRow>
+                            <a href="">
+                                <LinkTag to={`/sd/${sys.id}`}>
+                                    <Hover>
+                                        <TableData key={id}>{sys.code}</TableData>
+                                    </Hover>
+                                </LinkTag>
+                            </a>
+                            <TableData>{sys.name}</TableData>
+                            <TableData>{sys.device}</TableData>
+                            <TableData>{sys.config}</TableData>
+                            <TableData>{sys.slno_scode_regno}</TableData>
+                            <TableData>{sys.devicehistory}</TableData>
+                            <TableData style={{ "text-align": "center" }} >
+                                <LinkTag to={`/editsystem/${sys.id}`}>
+                                    <FontAwesomeIcon icon={faEdit} ></FontAwesomeIcon>
+                                </LinkTag>
+                            </TableData>
+                            <TableData style={{ "text-align": "center" }} >
+                                <FontAwesomeIcon icon={faTrash} onClick={() => handleDelete(sys.id)}></FontAwesomeIcon>
+                            </TableData>
+
+                        </TableRow>
+                    ))
+                    }
+                </Table>
             </Container>
+
         </Fragment>
 
     )
 }
-

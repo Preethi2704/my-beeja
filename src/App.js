@@ -12,13 +12,15 @@ import { PersonalDetails } from './component/ListofPersonalDetails';
 import { Create_PersonalDetails } from "./component/CreatePersonalDetails";
 import { Personal_Details } from "./component/PersonalDetails"
 import {EditPersonalDetails} from "./component/EditPersonalDetails";
-import {InventoryPage} from "./component/Accounting";
-import {  Create} from "./component/CreateSystemDetail";
+import {SystemDetails} from "./component/Accounting";
+import { System_Details } from "./component/SystemDetails";
+import {CreateSystem} from "./component/CreateSystemDetails";
+import {EditSystem} from "./component/EditSystemDetails";
+
 import './App.css'
 import { from } from '@apollo/client';
 function App() {
   return (
-
     <Router history={history}>
       <Switch>
         <Route exact path="/" component={LoginPage} />
@@ -32,8 +34,10 @@ function App() {
         <Route exact path="/createpresonal" component={Create_PersonalDetails} />
         <Route exact path="/pd/:id/" component={Personal_Details} />
         <Route exact path="/editpersonal/:id" component={EditPersonalDetails}/>
-        <Route exact path="/inventorypage" component={InventoryPage}/>
-        <Route exact path="/create" component={Create}/>
+        <Route exact path="/SystemDetails" component={SystemDetails}/>
+        <Route exact path="/sd/:id" component={System_Details} />
+        <Route exact path="/createsystem" component={CreateSystem}/>
+        <Route exact path="/editsystem/:id" component={EditSystem}/>
       </Switch>
     </Router>
   );

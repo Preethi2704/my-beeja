@@ -152,6 +152,7 @@ export const PersonalDetails = () => {
                             <TableData>{emp.role}</TableData>
                             <TableData>{emp.pan_No}</TableData>
                             <TableData>{emp.account_No}</TableData>
+                
                             <TableData>{emp.ifsc_code}</TableData>
                             <TableData style={{ "text-align": "center" }} >
                                 <LinkTag to={`/editpersonal/${emp.id}`}>
@@ -159,11 +160,7 @@ export const PersonalDetails = () => {
                                 </LinkTag>
                             </TableData>
                             <TableData style={{ "text-align": "center" }} >
-
-                                <Button onClick={() => handleDelete(emp.id)} >
-                                    <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
-                                </Button>
-
+                                    <FontAwesomeIcon icon={faTrash}  onClick={() => handleDelete(emp.id)} ></FontAwesomeIcon>
                             </TableData>
 
                         </TableRow>
