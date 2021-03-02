@@ -66,7 +66,7 @@ export const HomePage = () => {
                     <TableRow><TableData>
                         <LinkTag to={"/hr"} >HR </LinkTag></TableData></TableRow>
                     <TableRow><TableData>
-                        <LinkTag to={"/inventorypage"}> ACCOUNTING</LinkTag>
+                        <LinkTag to={"/systemdetails"}> ACCOUNTING</LinkTag>
                     </TableData></TableRow>
                     <TableRow><TableData>
                         <LinkTag to={"/list"} >
